@@ -1,0 +1,43 @@
+{
+  "name": "carrera-caracoles",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Aplicación web de apuestas en carreras de caracoles (React + Express + TypeScript)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.11"
+  },
+  "workspaces": [
+    "shared",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n api,web -c cyan,magenta \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm run dev --workspace @carrera/backend",
+    "dev:web": "npm run dev --workspace @carrera/frontend",
+    "build": "npm run build --workspace @carrera/shared && npm run build --workspace @carrera/backend && npm run build --workspace @carrera/frontend",
+    "start": "npm run start --workspace @carrera/backend",
+    "preview": "npm run preview --workspace @carrera/frontend",
+    "test": "npm run test --workspace @carrera/shared && npm run test --workspace @carrera/backend && npm run test --workspace @carrera/frontend",
+    "test:api": "npm run test --workspace @carrera/backend",
+    "test:web": "npm run test --workspace @carrera/frontend",
+    "test:watch": "npm run test:watch --workspace @carrera/backend",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "postinstall": "npm run build --workspace @carrera/shared"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "concurrently": "^10.0.6",
+    "eslint": "^10.13.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^16.5.0",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.0"
+  }
+}

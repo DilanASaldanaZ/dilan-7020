@@ -1,0 +1,33 @@
+# Dependencias
+node_modules/
+
+# Artefactos de compilación
+dist/
+build/
+*.tsbuildinfo
+
+# Variables de entorno (nunca subir credenciales)
+.env
+.env.local
+.env.*.local
+
+# Cobertura y reportes de pruebas
+coverage/
+.nyc_output/
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# Sistema operativo / editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Documentos de trabajo internos (no deben viajar al repositorio)
+_instrucciones.txt
+*.pdf
+.repo-name.txt
