@@ -1,0 +1,67 @@
+/**
+ * Sistema de diseño: variables de color, espaciado, tipografía y sombras.
+ *
+ * Todas las decisiones visuales de la app salen de aquí. Si hay que cambiar
+ * un color o una distancia, se cambia en un solo lugar.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Colores de fondo */
+  --color-bg: #070d1a;
+  --color-bg-gradient: radial-gradient(circle at 15% 0%, #12304d 0%, transparent 45%),
+    radial-gradient(circle at 90% 10%, #123a35 0%, transparent 40%), #070d1a;
+  --color-surface: #101a2e;
+  --color-surface-raised: #16233c;
+  --color-surface-muted: #1b2a46;
+
+  /* Bordes */
+  --color-border: #24344f;
+  --color-border-strong: #33496d;
+
+  /* Texto */
+  --color-text: #e9eefb;
+  --color-text-muted: #97a8c7;
+  --color-text-faint: #6f82a3;
+
+  /* Color principal (verde "pista") */
+  --color-primary: #34d399;
+  --color-primary-strong: #10b981;
+  --color-primary-soft: rgba(52, 211, 153, 0.12);
+
+  /* Colores semánticos */
+  --color-danger: #f87171;
+  --color-danger-soft: rgba(248, 113, 113, 0.12);
+  --color-warning: #fbbf24;
+  --color-warning-soft: rgba(251, 191, 36, 0.12);
+  --color-info: #60a5fa;
+  --color-info-soft: rgba(96, 165, 250, 0.12);
+  --color-success: #4ade80;
+
+  /* Espaciado */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  /* Radios */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 999px;
+
+  /* Sombras */
+  --shadow-card: 0 20px 45px -25px rgba(2, 6, 20, 0.9);
+  --shadow-focus: 0 0 0 3px rgba(52, 211, 153, 0.28);
+
+  /* Tipografía */
+  --font-sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Cascadia Code', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  /* Transiciones */
+  --transition-fast: 140ms ease;
+}
