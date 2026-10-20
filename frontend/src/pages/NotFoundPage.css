@@ -1,0 +1,39 @@
+.cc-notfound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: 100vh;
+  padding: var(--space-5);
+  text-align: center;
+}
+
+.cc-notfound__code {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.cc-notfound__title {
+  font-size: 1.4rem;
+}
+
+.cc-notfound__text {
+  max-width: 34rem;
+  color: var(--color-text-muted);
+}
+
+.cc-notfound__link {
+  margin-top: var(--space-2);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: #05221a;
+  font-weight: 600;
+}
+
+.cc-notfound__link:hover {
+  text-decoration: none;
+  background: var(--color-primary-strong);
+}
