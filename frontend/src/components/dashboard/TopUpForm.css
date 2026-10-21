@@ -1,0 +1,39 @@
+.cc-topup__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cc-topup__grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.cc-topup__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.cc-topup__checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.cc-topup__checkbox input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .cc-topup__row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,53 @@
+.cc-races {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cc-races__item {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr 1.2fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: rgba(8, 15, 30, 0.4);
+  font-size: 0.88rem;
+}
+
+.cc-races__number {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.cc-races__time {
+  color: var(--color-text-muted);
+}
+
+.cc-races__winner {
+  color: var(--color-text-muted);
+}
+
+.cc-races__winner strong {
+  color: var(--color-text);
+}
+
+.cc-races__duration {
+  color: var(--color-text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 560px) {
+  .cc-races__item {
+    grid-template-columns: 2rem 1fr;
+    row-gap: var(--space-1);
+  }
+
+  .cc-races__duration {
+    display: none;
+  }
+}
