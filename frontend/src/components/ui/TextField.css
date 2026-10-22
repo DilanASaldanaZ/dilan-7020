@@ -1,0 +1,74 @@
+.cc-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cc-field__label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.02em;
+}
+
+.cc-field__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cc-field__input {
+  width: 100%;
+  padding: 0.68rem 0.9rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: rgba(8, 15, 30, 0.75);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.cc-field__input::placeholder {
+  color: var(--color-text-faint);
+}
+
+.cc-field__input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-focus);
+}
+
+.cc-field--invalid .cc-field__input {
+  border-color: var(--color-danger);
+}
+
+.cc-field__toggle {
+  position: absolute;
+  right: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cc-field__toggle:hover {
+  color: var(--color-text);
+}
+
+.cc-field__hint {
+  font-size: 0.78rem;
+  color: var(--color-text-faint);
+}
+
+.cc-field__error {
+  font-size: 0.8rem;
+  color: var(--color-danger);
+}

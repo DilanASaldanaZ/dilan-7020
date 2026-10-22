@@ -1,0 +1,35 @@
+.cc-spinner {
+  display: inline-flex;
+}
+
+.cc-spinner__circle {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid var(--color-primary);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: cc-spin 0.7s linear infinite;
+}
+
+.cc-spinner__circle--lg {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-width: 3px;
+}
+
+.cc-page-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 60vh;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+@keyframes cc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
