@@ -170,13 +170,28 @@ export function validateCardNumber(cardNumber: string): string | null {
   return null;
 }
 
-/** Valida el formato de la fecha de vencimiento (MM/AA). */
-export function validateExpiryDate(expiryDate: string): string | null {
+/**
+ * Valida el formato de la fecha de vencimiento (MM/AA) y que no esté vencida.
+ *
+ * Una tarjeta es válida hasta el último día de su mes de vencimiento, por eso
+ * el mes actual todavía se acepta. `now` se puede pasar en las pruebas para no
+ * depender de la fecha real.
+ */
+export function validateExpiryDate(expiryDate: string, now: Date = new Date()): string | null {
   const value = (expiryDate ?? '').trim();
   if (value.length === 0) return 'La fecha de vencimiento es obligatoria.';
   if (!/^\d{2}\/\d{2}$/.test(value)) return 'La fecha de vencimiento debe tener el formato MM/AA.';
   const month = Number(value.slice(0, 2));
   if (month < 1 || month > 12) return 'El mes de la fecha de vencimiento debe estar entre 01 y 12.';
+
+  const year = 2000 + Number(value.slice(3));
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
+
+  if (year < currentYear || (year === currentYear && month < currentMonth)) {
+    return 'La tarjeta está vencida. Usa una fecha de vencimiento vigente.';
+  }
+
   return null;
 }
 
@@ -197,13 +212,13 @@ export function validateAmount(amount: number): string | null {
 }
 
 /** Valida el formulario de recarga de saldo. */
-export function validateTopUpInput(input: TopUpInput): ValidationResult<TopUpInput> {
+export function validateTopUpInput(input: TopUpInput, now: Date = new Date()): ValidationResult<TopUpInput> {
   const errors: FieldErrors = {};
 
   const cardNumberError = validateCardNumber(input.cardNumber ?? '');
   if (cardNumberError) errors.cardNumber = cardNumberError;
 
-  const expiryDateError = validateExpiryDate(input.expiryDate ?? '');
+  const expiryDateError = validateExpiryDate(input.expiryDate ?? '', now);
   if (expiryDateError) errors.expiryDate = expiryDateError;
 
   const cvvError = validateCvv(input.cvv ?? '');

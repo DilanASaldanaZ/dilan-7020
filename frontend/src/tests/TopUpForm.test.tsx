@@ -68,6 +68,20 @@ describe('TopUpForm', () => {
     expect(cardHolder).toHaveValue('Ana Prueba');
   });
 
+  it('rechaza una tarjeta vencida antes de llamar a la pasarela', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<TopUpForm token="token" defaultCardHolder="Ana Prueba" onApproved={vi.fn()} />);
+
+    await user.type(screen.getByLabelText('Número de tarjeta'), '1234123412341234');
+    await user.type(screen.getByLabelText('Vencimiento'), '0120');
+    await user.type(screen.getByLabelText('CVV'), '543');
+    await user.type(screen.getByLabelText('Monto de la recarga'), '250');
+    await user.click(screen.getByRole('button', { name: 'Confirmar recarga' }));
+
+    expect(await screen.findByText(/La tarjeta está vencida/i)).toBeInTheDocument();
+    expect(topUp).not.toHaveBeenCalled();
+  });
+
   it('muestra un error de validación si el CVV no tiene 3 dígitos', async () => {
     const user = userEvent.setup();
     renderWithProviders(<TopUpForm token="token" defaultCardHolder="Ana Prueba" onApproved={vi.fn()} />);

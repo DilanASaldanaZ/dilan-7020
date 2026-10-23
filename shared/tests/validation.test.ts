@@ -116,9 +116,40 @@ describe('validaciones de la recarga', () => {
   });
 
   it('exige el formato MM/AA en la fecha de vencimiento', () => {
-    expect(validateExpiryDate('12/26')).toBeNull();
-    expect(validateExpiryDate('2026-12')).toBeTruthy();
-    expect(validateExpiryDate('13/26')).toBeTruthy();
+    const ahora = new Date('2026-10-15T12:00:00');
+    expect(validateExpiryDate('12/26', ahora)).toBeNull();
+    expect(validateExpiryDate('2026-12', ahora)).toBeTruthy();
+    expect(validateExpiryDate('13/26', ahora)).toBeTruthy();
+  });
+
+  it('rechaza una tarjeta vencida', () => {
+    const ahora = new Date('2026-10-15T12:00:00');
+    const mensaje = 'La tarjeta está vencida. Usa una fecha de vencimiento vigente.';
+    expect(validateExpiryDate('09/26', ahora)).toBe(mensaje);
+    expect(validateExpiryDate('12/25', ahora)).toBe(mensaje);
+    expect(validateExpiryDate('01/20', ahora)).toBe(mensaje);
+  });
+
+  it('acepta el mes actual: la tarjeta vale hasta el último día del mes', () => {
+    const ahora = new Date('2026-10-15T12:00:00');
+    expect(validateExpiryDate('10/26', ahora)).toBeNull();
+    expect(validateExpiryDate('11/26', ahora)).toBeNull();
+  });
+
+  it('marca el vencimiento en el resultado del formulario de recarga', () => {
+    const result = validateTopUpInput(
+      {
+        cardNumber: '1234123412341234',
+        expiryDate: '09/26',
+        cvv: '543',
+        cardHolder: 'Ana Prueba',
+        amount: 250,
+      },
+      new Date('2026-10-15T12:00:00'),
+    );
+
+    expect(result.valid).toBe(false);
+    expect(result.errors.expiryDate).toMatch(/vencida/i);
   });
 
   it('exige 3 dígitos en el CVV', () => {
