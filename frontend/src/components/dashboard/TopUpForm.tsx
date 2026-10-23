@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { formatCurrency, validateTopUpInput } from '@carrera/shared';
+import { formatCurrency, formatCvvInput, formatExpiryDateInput, validateTopUpInput } from '@carrera/shared';
 import type { FieldErrors } from '@carrera/shared';
 import { ApiError } from '../../services/api/client';
 import { extractPaymentFromError, topUp } from '../../services/payments.service';
@@ -124,9 +124,13 @@ export function TopUpForm({ token, defaultCardHolder, onApproved }: TopUpFormPro
             <TextField
               label="Vencimiento"
               placeholder="MM/AA"
+              inputMode="numeric"
+              maxLength={5}
               autoComplete="off"
               value={expiryDate}
-              onChange={(event) => setExpiryDate(event.target.value)}
+              onChange={(event) =>
+                setExpiryDate(formatExpiryDateInput(event.target.value, expiryDate))
+              }
               error={fieldErrors.expiryDate}
               hint="12/26"
             />
@@ -135,9 +139,10 @@ export function TopUpForm({ token, defaultCardHolder, onApproved }: TopUpFormPro
               label="CVV"
               placeholder="123"
               inputMode="numeric"
+              maxLength={3}
               autoComplete="off"
               value={cvv}
-              onChange={(event) => setCvv(event.target.value)}
+              onChange={(event) => setCvv(formatCvvInput(event.target.value))}
               error={fieldErrors.cvv}
               hint="543"
             />

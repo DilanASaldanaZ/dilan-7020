@@ -41,6 +41,19 @@ describe('TopUpForm', () => {
     expect(topUp).not.toHaveBeenCalled();
   });
 
+  it('limita el vencimiento a números con diagonal automática y el CVV a 3 dígitos', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<TopUpForm token="token" defaultCardHolder="Ana Prueba" onApproved={vi.fn()} />);
+
+    const expiry = screen.getByLabelText('Vencimiento');
+    await user.type(expiry, '12abc26');
+    expect(expiry).toHaveValue('12/26');
+
+    const cvv = screen.getByLabelText('CVV');
+    await user.type(cvv, '54a321');
+    expect(cvv).toHaveValue('543');
+  });
+
   it('muestra un error de validación si el CVV no tiene 3 dígitos', async () => {
     const user = userEvent.setup();
     renderWithProviders(<TopUpForm token="token" defaultCardHolder="Ana Prueba" onApproved={vi.fn()} />);
