@@ -54,6 +54,20 @@ describe('TopUpForm', () => {
     expect(cvv).toHaveValue('543');
   });
 
+  it('limita la tarjeta a 16 dígitos y el titular a letras', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<TopUpForm token="token" defaultCardHolder="Ana Prueba" onApproved={vi.fn()} />);
+
+    const cardNumber = screen.getByLabelText('Número de tarjeta');
+    await user.type(cardNumber, '1234a1234 12341234-9999');
+    expect(cardNumber).toHaveValue('1234123412341234');
+
+    const cardHolder = screen.getByLabelText('Nombre completo del titular');
+    await user.clear(cardHolder);
+    await user.type(cardHolder, 'Ana3 Prueba!');
+    expect(cardHolder).toHaveValue('Ana Prueba');
+  });
+
   it('muestra un error de validación si el CVV no tiene 3 dígitos', async () => {
     const user = userEvent.setup();
     renderWithProviders(<TopUpForm token="token" defaultCardHolder="Ana Prueba" onApproved={vi.fn()} />);

@@ -76,6 +76,30 @@ export function formatCvvInput(value: string): string {
   return (value ?? '').replace(/\D/g, '').slice(0, 3);
 }
 
+/**
+ * Da formato al número de tarjeta: solo dígitos y un máximo de dieciséis.
+ * Se guarda sin espacios porque la API espera los dígitos limpios.
+ * @example formatCardNumberInput('1234 1234-1234a1234') // '1234123412341234'
+ * @example formatCardNumberInput('123412341234123499') // '1234123412341234'
+ */
+export function formatCardNumberInput(value: string): string {
+  return (value ?? '').replace(/\D/g, '').slice(0, 16);
+}
+
+/**
+ * Da formato al nombre del titular: solo letras y espacios.
+ *
+ * Se aceptan letras acentuadas y de otros idiomas (`\p{L}`), se descartan
+ * números y símbolos, y se evitan espacios repetidos.
+ * @example formatCardHolderInput('Ana3  Prueba!') // 'Ana Prueba'
+ */
+export function formatCardHolderInput(value: string): string {
+  return (value ?? '')
+    .replace(/[^\p{L}\s]/gu, '')
+    .replace(/\s+/g, ' ')
+    .slice(0, 80);
+}
+
 /** Redondea a dos decimales evitando errores de coma flotante. */
 export function roundMoney(amount: number): number {
   return Math.round((amount + Number.EPSILON) * 100) / 100;

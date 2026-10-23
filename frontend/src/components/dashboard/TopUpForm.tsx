@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { formatCurrency, formatCvvInput, formatExpiryDateInput, validateTopUpInput } from '@carrera/shared';
+import {
+  formatCardHolderInput,
+  formatCardNumberInput,
+  formatCurrency,
+  formatCvvInput,
+  formatExpiryDateInput,
+  validateTopUpInput,
+} from '@carrera/shared';
 import type { FieldErrors } from '@carrera/shared';
 import { ApiError } from '../../services/api/client';
 import { extractPaymentFromError, topUp } from '../../services/payments.service';
@@ -113,9 +120,10 @@ export function TopUpForm({ token, defaultCardHolder, onApproved }: TopUpFormPro
             label="Número de tarjeta"
             placeholder="1234123412341234"
             inputMode="numeric"
+            maxLength={16}
             autoComplete="off"
             value={cardNumber}
-            onChange={(event) => setCardNumber(event.target.value)}
+            onChange={(event) => setCardNumber(formatCardNumberInput(event.target.value))}
             error={fieldErrors.cardNumber}
             hint="Tarjeta de prueba: 1234123412341234"
           />
@@ -150,9 +158,10 @@ export function TopUpForm({ token, defaultCardHolder, onApproved }: TopUpFormPro
 
           <TextField
             label="Nombre completo del titular"
+            maxLength={80}
             autoComplete="off"
             value={cardHolder}
-            onChange={(event) => setCardHolder(event.target.value)}
+            onChange={(event) => setCardHolder(formatCardHolderInput(event.target.value))}
             error={fieldErrors.cardHolder}
           />
 

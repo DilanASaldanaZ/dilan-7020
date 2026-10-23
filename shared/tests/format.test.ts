@@ -6,7 +6,7 @@
  * sola y que la longitud quede limitada.
  */
 import { describe, expect, it } from 'vitest';
-import { formatCvvInput, formatExpiryDateInput } from '../src/index.js';
+import { formatCardHolderInput, formatCardNumberInput, formatCvvInput, formatExpiryDateInput } from '../src/index.js';
 
 describe('formatExpiryDateInput', () => {
   it('acepta solo dígitos', () => {
@@ -37,6 +37,38 @@ describe('formatExpiryDateInput', () => {
 
   it('devuelve una cadena vacía si no hay dígitos', () => {
     expect(formatExpiryDateInput('mm/aa')).toBe('');
+  });
+});
+
+describe('formatCardNumberInput', () => {
+  it('acepta solo dígitos', () => {
+    expect(formatCardNumberInput('1234 1234-1234a1234')).toBe('1234123412341234');
+  });
+
+  it('limita el número de tarjeta a dieciséis dígitos', () => {
+    expect(formatCardNumberInput('123412341234123499')).toBe('1234123412341234');
+  });
+
+  it('devuelve una cadena vacía si no hay dígitos', () => {
+    expect(formatCardNumberInput('tarjeta')).toBe('');
+  });
+});
+
+describe('formatCardHolderInput', () => {
+  it('acepta solo letras y espacios', () => {
+    expect(formatCardHolderInput('Ana3  Prueba!')).toBe('Ana Prueba');
+  });
+
+  it('conserva las letras acentuadas', () => {
+    expect(formatCardHolderInput('José Núñez')).toBe('José Núñez');
+  });
+
+  it('elimina los espacios repetidos', () => {
+    expect(formatCardHolderInput('Ana    Prueba')).toBe('Ana Prueba');
+  });
+
+  it('limita el nombre a ochenta caracteres', () => {
+    expect(formatCardHolderInput('a'.repeat(100))).toHaveLength(80);
   });
 });
 
